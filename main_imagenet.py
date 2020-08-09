@@ -109,7 +109,7 @@ def main(train_root,
         outer_criterion_config = {'feat_dim': 512}
     else:
         outer_criterion_config = {'sigma_x': rbf_sigma_x, 'sigma_y': rbf_sigma_y,
-                                  'algorithm': hsic_alg},
+                                  'algorithm': hsic_alg}
 
     engine = ImageNetTrainer(
         outer_criterion=outer_criterion,
