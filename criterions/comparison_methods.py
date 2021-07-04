@@ -80,7 +80,7 @@ class LearnedMixin(nn.Module):
         self.w = w
         self.fc = nn.Linear(kwargs.get('feat_dim', 128), 1).cuda()
 
-    def forward(self, f_feat, g_pred, labels, f_pred):
+    def forward(self, f_feat, g_feat, labels, f_pred, g_pred):
         f_feat = f_feat.view(f_feat.shape[0], -1)
         f_pred = f_pred.view(f_pred.shape[0], -1)
         g_pred = g_pred.view(g_pred.shape[0], -1)
@@ -89,7 +89,7 @@ class LearnedMixin(nn.Module):
         factor = F.softplus(factor)
         g_pred *= factor
 
-        loss = F.cross_entropy(f_pred+g_pred, labels)
+        loss = F.cross_entropy(f_pred + g_pred, labels)
 
         bias_lp = F.log_softmax(g_pred, 1)
         entropy = -(torch.exp(bias_lp) * bias_lp).sum(1).mean()
