@@ -337,7 +337,7 @@ class Trainer(object):
             for g_idx, g_net in enumerate(self.model.g_nets):
                 _g_preds, _g_feats = g_net(x)
 
-                _f_loss_indep = self.outer_criterion(f_feats, _g_feats, labels=labels, f_pred=preds)
+                _f_loss_indep = self.outer_criterion(f_feats, _g_feats, labels=labels, f_pred=preds, g_pred=_g_preds)
                 f_loss_indep += _f_loss_indep
 
                 loss_dict['{}f_loss_indep_g_{}'.format(prefix, g_idx)] = _f_loss_indep.item()
